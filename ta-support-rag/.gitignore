@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+
+# OS
+.DS_Store
+
+# Local model store / indexes (regenerable from transcript)
+.store/
+
+# Private cohort data — excluded from publication (contains real names)
+transcript.txt
+eval/golden_keys_4-20.md

@@ -1,0 +1,13 @@
+langchain
+langchain-community
+langchain-text-splitters
+langchain-huggingface       # local sentence-transformers embeddings (free)
+langchain-chroma            # local persistent vector store (free, replaces Pinecone)
+chromadb
+rank-bm25                   # sparse BM25 retriever
+sentence-transformers       # local embeddings + cross-encoder reranker
+numpy
+python-dotenv
+# Online LLM steps (classify/reflect/generate/grounding) run on a free local
+# backend — install Ollama (https://ollama.com) + langchain-ollama when we reach
+# Stage 2. No OpenAI / Pinecone keys are needed for the offline build.
