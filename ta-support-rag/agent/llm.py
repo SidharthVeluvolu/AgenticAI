@@ -15,8 +15,13 @@ from config import settings
 
 
 def chat(model: str, system: str, user: str, temperature: float = 0.0,
-         json_mode: bool = False, timeout: int = 240) -> str:
-    """One-shot chat completion against local Ollama. Returns the message text."""
+         json_mode: bool = False, timeout: int = 90, num_predict: int = 512) -> str:
+    """One-shot chat completion against local Ollama. Returns the message text.
+
+    num_predict caps generation length — without it a small model in JSON mode can
+    run away and never stop, stalling the whole pipeline until the timeout. Our
+    outputs (a 2-5 sentence answer, a short JSON verdict) fit well under 512 tokens.
+    """
     payload = {
         "model": model,
         "messages": [
@@ -24,7 +29,7 @@ def chat(model: str, system: str, user: str, temperature: float = 0.0,
             {"role": "user", "content": user},
         ],
         "stream": False,
-        "options": {"temperature": temperature},
+        "options": {"temperature": temperature, "num_predict": num_predict},
     }
     if json_mode:
         payload["format"] = "json"

@@ -52,7 +52,7 @@ def _extract_citations(answer: str, context: list) -> list:
 
 def generate(query: str, context: list) -> dict:
     """Return {answer, citations:[speaker,...], insufficient: bool}."""
-    ctx = format_context(context[:settings.TOP_K_FINAL])
+    ctx = format_context(context[:settings.MAX_CONTEXT_CHUNKS])
     user = (f"CONTEXT (numbered excerpts, each tagged with its speaker):\n{ctx}\n\n"
             f"STUDENT QUESTION: {query}")
     answer = chat(settings.GENERATE_MODEL, TA_SYSTEM_PROMPT, user, temperature=0.0)

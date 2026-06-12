@@ -50,9 +50,12 @@ ESCALATION_COPY = {
 
 
 def _clean_answer(answer: str) -> str:
-    """Drop a leading '— Speaker' line and the trailing 'Sources:' line for display."""
-    body = re.split(r"\n?sources?\s*:", answer, flags=re.IGNORECASE)[0].strip()
-    body = re.sub(r"^[—\-]\s*[A-Z][\w .'-]+\n+", "", body).strip()
+    """Strip the 'Sources:' line (top or bottom) and leading/trailing '— Speaker'
+    attributions for display — the speaker is shown separately as a metric."""
+    body = "\n".join(ln for ln in answer.splitlines()
+                     if not re.match(r"\s*sources?\s*:", ln, re.IGNORECASE)).strip()
+    body = re.sub(r"^[—\-]\s*[A-Z][\w .'-]+\s*\n+", "", body).strip()
+    body = re.sub(r"\s*[—\-]\s*[A-Z][\w .'-]+\s*$", "", body).strip()
     return body
 
 
